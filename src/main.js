@@ -343,8 +343,10 @@ mapboard({
   greeting: {
     message: ''
   },
-  plugin: true,
-  pluginHeight: 600,
+  plugin: {
+    enabled: true,
+    height: 600
+  },
   // defaultAddress: searchInput,
   router: {
     enabled: false
@@ -361,37 +363,6 @@ mapboard({
     left: 0,
     right: 0,
   },
-  // legendControls: {
-  //   /*litter: {
-  //     options: {
-  //       topics: ['litter'],
-  //       showWithBaseMapOnly: false
-  //     },
-  //     data: {
-  //       '1.0-1.25': {
-  //         'background-color': 'rgb(56, 168, 0)',
-  //       },
-  //       '1.25-1.75': {
-  //         'background-color': 'rgb(152, 230, 0)'
-  //       },
-  //       '1.75-2.25': {
-  //         'background-color': 'rgb(255, 255, 0)'
-  //       },
-  //       '2.25-2.75': {
-  //         'background-color': 'rgb(255, 229, 0)'
-  //       },
-  //       '2.75-3.25': {
-  //         'background-color': 'rgb(255, 170, 0)'
-  //       },
-  //       '3.25-3.75': {
-  //         'background-color': 'rgb(255, 85, 0)',
-  //       },
-  //       '3.75-4.0': {
-  //         'background-color': 'rgb(255, 0, 0)'
-  //       },
-  //     }
-  //   }*/
-  // },
   transforms: {
     rcoPrimaryContact: {
       transform: function(value) {
@@ -481,17 +452,6 @@ mapboard({
     }
   },
   topics: [
-    // {
-    //   key: 'litter2',
-    //   label: 'Litter2',
-    //   components: [],
-    //   basemap: 'pwd',
-    //   tiledOverlays: [
-    //     'litterIndex',
-    //   ],
-    //   identifyFeature: 'address-marker',
-    //   parcels: 'pwd',
-    // },
     {
       key: 'litter',
       label: 'Litter',

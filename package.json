@@ -7,7 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "@philly/mapboard": "^3.0.30",
+    "@philly/mapboard": "https://github.com/CityOfPhiladelphia/mapboard#32720505e4158e0a2dc99f06eb89848d8c1fe22f",
     "vue": "^2.6.6",
     "vuex": "^3.0.1"
   },
