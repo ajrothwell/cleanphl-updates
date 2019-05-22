@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/cleanphl-updates/dist/'
+  publicPath: '/wp-content/plugins/philly-litter-index'
 }

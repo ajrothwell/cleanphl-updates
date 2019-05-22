@@ -37,3 +37,11 @@
 		float: right;
 	}
 }
+
+th a {
+  color: #a5c0e4 !important;
+}
+
+th a:active, a:hover {
+  color: white !important;
+}

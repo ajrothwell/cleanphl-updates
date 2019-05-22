@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "dev-build": "vue-cli-service build --mode development"
   },
   "dependencies": {
-    "@philly/mapboard": "https://github.com/CityOfPhiladelphia/mapboard#32720505e4158e0a2dc99f06eb89848d8c1fe22f",
+    "@philly/mapboard": "^3.0.31",
     "vue": "^2.6.6",
     "vuex": "^3.0.1"
   },

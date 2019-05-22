@@ -1,11 +1,13 @@
+import Vue from 'vue';
+Vue.config.devtools = true;
+
 import mapboard from '@philly/mapboard/src/main.js';
 
 // var BASE_CONFIG_URL = '//cdn.rawgit.com/ajrothwell/cleanphl-base-config/ccba3f153c476a4a23d3b1f3a3d7099d440ee7f0/config.js'
 var BASE_CONFIG_URL = '//cdn.jsdelivr.net/gh/ajrothwell/cleanphl-base-config@89fe193e30d021814d6e082892351551ddb05849/config.js'
 var GATEKEEPER_KEY = '77e78967d0a3e768432f74132f784f42';
 
-// TODO get user-entered address
-// var searchInput = '1300 market street';
+var searchInput = window.address || '';
 
 var blockScoreColorScale = [
   // min        max     color
@@ -347,9 +349,9 @@ mapboard({
     enabled: true,
     height: 600
   },
-  // defaultAddress: searchInput,
+  defaultAddress: searchInput,
   router: {
-    enabled: false
+    enabled: true
   },
   geolocation: {
     enabled: false
@@ -399,7 +401,7 @@ mapboard({
       litterIndex: {
         url: '//tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/LitterIndexTiles/MapServer',
         opacity: 1.0,
-        zIndex: '3',
+        zIndex: '4',
       },
     },
   },
@@ -557,9 +559,9 @@ mapboard({
               {
                 label: '<a href="//philadelphiastreets.com/recycling/home-base-residential/" target="_blank">Recycling Diversion Rate</a>',
                 value: function (state) {
-                  var rate = state.geocode.data.properties.recycling_diversion_rate,
-                    ratePercent = parseInt(rate * 100);
-                  ratePercentStr = ratePercent + '%';
+                  var rate = state.geocode.data.properties.recycling_diversion_rate;
+                  var ratePercent = parseInt(rate * 100);
+                  var ratePercentStr = ratePercent + '%';
 
                   return ratePercentStr;
                 },
