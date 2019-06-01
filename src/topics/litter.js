@@ -21,37 +21,74 @@ export default {
           {
             type: 'badge',
             options: {
-              titleBackground: function (state) {
-                var data = state.sources.litterIndexLine.data || [],
-                firstItem = data[0] || {},
-                props = firstItem.properties || {},
-                score = props.HUNDRED_BLOCK_SCORE;
+              titleBackground: function (state, item) {
+                console.log('item,', item)
+                if (state.sources.litterIndexLine.status === "success") {
+                  var data = state.sources.litterIndexLine.data || [],
+                  firstItem,
+                  props,
+                  score
 
-                return helpers.colorForBlockScore(score);
+                  for (let datum of data) {
+                    if (datum.properties.YEAR === item.year) {
+                      firstItem = datum;
+                      continue;
+                    }
+                  }
+                  props = firstItem.properties || {},
+                  score = props.HUNDRED_BLOCK_SCORE;
+
+                  return helpers.colorForBlockScore(score);
+                }
               }
             },
             slots: {
               title: 'Litter Index Block Score',
-              value: function (state) {
-                var data = state.sources.litterIndexLine.data || [],
-                firstItem = data[0] || {},
-                props = firstItem.properties || {},
-                score = props.HUNDRED_BLOCK_SCORE;
+              value: function (state, item) {
+                if (state.sources.litterIndexLine.status === "success") {
+                  var data = state.sources.litterIndexLine.data || [],
+                  firstItem,
+                  props,
+                  score
 
-                if (!score) {
-                  return "No Data Available";
+                  for (let datum of data) {
+                    if (datum.properties.YEAR === item.year) {
+                      firstItem = datum;
+                      continue;
+                    }
+                  }
+                  console.log('calculating block score, data:', data, 'data[0].properties.YEAR', data[0]['properties']['YEAR'], 'item.year:', item.year, 'firstItem:', firstItem);
+                  props = firstItem.properties || {},
+                  score = props.HUNDRED_BLOCK_SCORE;
+
+                  if (!score) {
+                    return "No Data Available";
+                  } else {
+                    return Math.round(score * 100) / 100;
+                  }
                 } else {
-                  return Math.round(score * 100) / 100;
+                  return "No Data Available";
                 }
               },
-              description: function (state) {
-                var data = state.sources.litterIndexLine.data || [],
-                firstItem = data[0] || {},
-                props = firstItem.properties || {},
-                score = props.HUNDRED_BLOCK_SCORE;
+              description: function (state, item) {
+                if (state.sources.litterIndexLine.status === "success") {
+                  var data = state.sources.litterIndexLine.data || [],
+                  firstItem,
+                  props,
+                  score
 
-                if (score) {
-                  return 'out of 4.0';
+                  for (let datum of data) {
+                    if (datum.properties.YEAR === item.year) {
+                      firstItem = datum;
+                      continue;
+                    }
+                  }
+                  props = firstItem.properties || {},
+                  score = props.HUNDRED_BLOCK_SCORE;
+
+                  if (score) {
+                    return 'out of 4.0';
+                  }
                 }
               },
             }
@@ -60,26 +97,39 @@ export default {
           {
             type: 'badge',
             options: {
-              titleBackground: function (state) {
-                var data = state.sources.litterIndexPolygon.data || [],
-                firstItem = data[0] || {},
-                props = firstItem.properties || {},
-                score = props.DIVISION_SCORE;
-                return helpers.colorForDivisionScore(score);
+              titleBackground: function (state, item) {
+                if (state.sources.litterIndexLine.status === "success") {
+                  var data = state.sources.litterIndexPolygon.data || [],
+                  firstItem,
+                  props,
+                  score
+
+                  for (let datum of data) {
+                    if (datum.properties.YEAR.toString() === item.year.toString()) {
+                      firstItem = datum;
+                      continue;
+                    }
+                  }
+                  props = firstItem.properties || {},
+                  score = props.DIVISION_SCORE;
+                  return helpers.colorForDivisionScore(score);
+                }
               }
             },
             slots: {
               title: 'Litter Index Neighborhood Average',
               value: function (state) {
-                var data = state.sources.litterIndexPolygon.data || [],
-                firstItem = data[0] || {},
-                props = firstItem.properties || {},
-                score = props.DIVISION_SCORE;
+                if (state.sources.litterIndexLine.status === "success") {
+                  var data = state.sources.litterIndexPolygon.data || [],
+                  firstItem = data[0] || {},
+                  props = firstItem.properties || {},
+                  score = props.DIVISION_SCORE;
 
-                if (!score) {
-                  return "No Data Available";
-                } else {
-                  return Math.round(score * 100) / 100;
+                  if (!score) {
+                    return "No Data Available";
+                  } else {
+                    return Math.round(score * 100) / 100;
+                  }
                 }
               },
               description: function (state) {
