@@ -63,7 +63,7 @@ mapboard({
     },
     tiledOverlays: {
       litterIndex2018: {
-        url: '//tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/LitterIndexTiles/MapServer',
+        url: '//tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/LitterIndexTiles2018/MapServer',
         label: '2018',
         year: 2018,
         opacity: 1.0,
@@ -107,6 +107,11 @@ mapboard({
   topics: [
     litter
   ],
+  cyclomedia: {
+    enabled: true,
+    measurementAllowed: false,
+    popoutAble: false,
+  },
   components: [
     {
       type: 'topic-set',

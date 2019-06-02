@@ -21,8 +21,11 @@ export default {
           {
             type: 'badge',
             options: {
+
+            },
+            slots: {
+              title: 'Litter Index Block Score',
               titleBackground: function (state, item) {
-                console.log('item,', item)
                 if (state.sources.litterIndexLine.status === "success") {
                   var data = state.sources.litterIndexLine.data || [],
                   firstItem,
@@ -40,10 +43,7 @@ export default {
 
                   return helpers.colorForBlockScore(score);
                 }
-              }
-            },
-            slots: {
-              title: 'Litter Index Block Score',
+              },
               value: function (state, item) {
                 if (state.sources.litterIndexLine.status === "success") {
                   var data = state.sources.litterIndexLine.data || [],
@@ -57,11 +57,14 @@ export default {
                       continue;
                     }
                   }
-                  console.log('calculating block score, data:', data, 'data[0].properties.YEAR', data[0]['properties']['YEAR'], 'item.year:', item.year, 'firstItem:', firstItem);
+                  // console.log('calculating block score, data:', data, 'data[0].properties.YEAR', data[0]['properties']['YEAR'], 'item.year:', item.year, 'firstItem:', firstItem);
                   props = firstItem.properties || {},
                   score = props.HUNDRED_BLOCK_SCORE;
 
-                  if (!score) {
+                  if (score === 0) {
+                    // console.log('score is 0')
+                    return '0';
+                  } else if (!score) {
                     return "No Data Available";
                   } else {
                     return Math.round(score * 100) / 100;
@@ -86,7 +89,7 @@ export default {
                   props = firstItem.properties || {},
                   score = props.HUNDRED_BLOCK_SCORE;
 
-                  if (score) {
+                  if (score || score === 0) {
                     return 'out of 4.0';
                   }
                 }
@@ -97,15 +100,19 @@ export default {
           {
             type: 'badge',
             options: {
+
+            },
+            slots: {
+              title: 'Litter Index Neighborhood Average',
               titleBackground: function (state, item) {
-                if (state.sources.litterIndexLine.status === "success") {
+                if (state.sources.litterIndexPolygon.status === "success") {
                   var data = state.sources.litterIndexPolygon.data || [],
                   firstItem,
                   props,
                   score
 
                   for (let datum of data) {
-                    if (datum.properties.YEAR.toString() === item.year.toString()) {
+                    if (datum.properties.YEAR === item.year) {
                       firstItem = datum;
                       continue;
                     }
@@ -114,32 +121,51 @@ export default {
                   score = props.DIVISION_SCORE;
                   return helpers.colorForDivisionScore(score);
                 }
-              }
-            },
-            slots: {
-              title: 'Litter Index Neighborhood Average',
-              value: function (state) {
-                if (state.sources.litterIndexLine.status === "success") {
+              },
+              value: function (state, item) {
+                if (state.sources.litterIndexPolygon.status === "success") {
                   var data = state.sources.litterIndexPolygon.data || [],
-                  firstItem = data[0] || {},
+                  firstItem,
+                  props,
+                  score;
+
+                  for (let datum of data) {
+                    if (datum.properties.YEAR === item.year) {
+                      firstItem = datum;
+                      continue;
+                    }
+                  }
                   props = firstItem.properties || {},
                   score = props.DIVISION_SCORE;
 
-                  if (!score) {
+                  if (score === 0) {
+                    return '0';
+                  } else if (!score) {
                     return "No Data Available";
                   } else {
                     return Math.round(score * 100) / 100;
                   }
                 }
               },
-              description: function (state) {
-                var data = state.sources.litterIndexPolygon.data || [],
-                firstItem = data[0] || {},
-                props = firstItem.properties || {},
-                score = props.DIVISION_SCORE;
+              description: function (state, item) {
+                if (state.sources.litterIndexPolygon.status === "success") {
+                  var data = state.sources.litterIndexPolygon.data || [],
+                  firstItem,
+                  props,
+                  score;
 
-                if (score) {
-                  return 'out of 4.0';
+                  for (let datum of data) {
+                    if (datum.properties.YEAR === item.year) {
+                      firstItem = datum;
+                      continue;
+                    }
+                  }
+                  props = firstItem.properties || {},
+                  score = props.DIVISION_SCORE;
+
+                  if (score || score === 0) {
+                    return 'out of 4.0';
+                  }
                 }
               },
             }

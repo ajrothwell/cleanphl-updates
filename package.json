@@ -8,8 +8,8 @@
     "dev-build": "vue-cli-service build --mode development"
   },
   "dependencies": {
-    "@philly/mapboard": "^3.0.34",
-    "vue": "^2.6.6",
+    "@philly/mapboard": "^3.0.35",
+    "vue": "^2.6.9",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
