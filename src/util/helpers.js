@@ -11,23 +11,23 @@ export default {
     [0.9,         1.25,    'rgb(88, 192, 77)'],
   ],
   divisionScoreColorScale: [
-    // min        max      color
-    [2.510001,    4.1,    'rgb(230, 0, 0)'],
-    [2.324001,    2.51,    'rgb(255, 0, 0)'],
-    [2.138001,    2.324,   'rgb(255, 85, 0)'],
-    [1.952001,    2.138,   'rgb(255, 170, 0)'],
-    [1.766001,    1.952,   'rgb(255, 204, 0)'],
-    [1.580001,    1.766,    'rgb(255, 229, 0)'],
-    [1.395001,    1.58,    'rgb(206, 237, 0)'],
-    [1.333001,    1.395,   'rgb(152, 230, 0)'],
-    [0.9,         1.333,   'rgb(88, 192, 77)'],
-  ],
+  // min        max      color
+  [2.695001,    4.1,    'rgb(230, 0, 0)'],
+  [2.510001,    2.695,    'rgb(255, 0, 0)'],
+  [2.324001,    2.51,   'rgb(255, 85, 0)'],
+  [2.138001,    2.324,   'rgb(255, 170, 0)'],
+  [1.952001,    2.138,   'rgb(255, 204, 0)'],
+  [1.766001,    1.952,    'rgb(255, 229, 0)'],
+  [1.580001,    1.766,    'rgb(206, 237, 0)'],
+  [1.395001,    1.58,   'rgb(152, 230, 0)'],
+  [0.9,         1.395,   'rgb(88, 192, 77)'],
+],
 
   colorForBlockScore(score) {
     var rangesFiltered = this.blockScoreColorScale.filter(function (item) {
           var min = item[0],
               max = item[1];
-          return min <= score && score < max;
+          return min <= score && score <= max;
         }),
         range = rangesFiltered.length > 0 ? rangesFiltered[0] : [null, null, 'rgb(178, 178, 178)'],
         color = range[2];
@@ -39,7 +39,7 @@ export default {
     var rangesFiltered = this.divisionScoreColorScale.filter(function (item) {
           var min = item[0],
               max = item[1];
-          return min <= score && score < max;
+          return min <= score && score <= max;
         }),
         range = rangesFiltered.length > 0 ? rangesFiltered[0] : [null, null, 'rgb(178, 178, 178)'],
         color = range[2];
